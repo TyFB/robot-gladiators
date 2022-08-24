@@ -25,7 +25,7 @@ var fight = function(enemyName) {
     // Alert players that they are starting the round
     window.alert("Welcome to Robot Gladiators!");
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-    while(enemyHealth > 0) {
+    while (playerHealth > 0 && enemyHealth > 0) {
     // if player choses to fight, then fight
     if (promptFight === "fight" || promptFight === "FIGHT") {
         // Subtract the value of 'playerAttack' from the value of 'enemyHealth' and use that result to update the value in the 'enemyHealth' variable
@@ -37,6 +37,7 @@ var fight = function(enemyName) {
         // check enemy's health
         if (enemyHealth <= 0) {
             window.alert(enemyName + " has died!");
+            break;
         }
         else {
             window.alert(enemyName + " still has " + enemyHealth + " health left.");
@@ -50,24 +51,27 @@ var fight = function(enemyName) {
         // check player's health
         if (playerHealth <=0) {
             window.alert(playerName + " has died!");
+            break;
         }
         else {
             window.alert(playerName + " still has " + playerHealth + " health left.");
         }
     
 
-        // if player choses to skip
+        // if player choses to skip subtract money
     } else if (promptFight === "skip" || promptFight === "SKIP") {
         window.alert(playerName + " has chosen to skip the fight!");
         var confirmSkip = window.confirm("Are you sure you'd like to quit?");
         if (confirmSkip) {
             window.alert(playerName + " has decided to skip this fight. Goodbye!");
-            playerMoney = playerMoney - 2;
+            playerMoney = playerMoney - 10;
+            break;
         } else {
             fight();
         }
         } else {
-        window.alert("You need to choose a valid option. Try again!");
+            window.alert("You need to choose a valid option. Try again!");
+            fight();
         }
     
 }
