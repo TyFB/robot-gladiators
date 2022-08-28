@@ -10,12 +10,11 @@ var randomNumber = function (min, max) {
 };
 var fight = function (enemy) {
     console.log(enemy);
-    while (playerInfo.health > 0 && pickedEnemyObj.health > 0) {
+    while (playerInfo.health > 0 && enemy.health > 0) {
         // ask player if they want to fight or skip the battle
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
         // if player choses to skip subtract money
         if (promptFight === "skip" || promptFight === "SKIP") {
-            window.alert(playerInfo.name + " has chosen to skip the fight!");
             // confirm to skip the battle
             var confirmSkip = window.confirm("Are you sure you'd like to quit?");
             // if yes(true), leave fight
@@ -29,24 +28,24 @@ var fight = function (enemy) {
         }
         // remove enemy's health by subtracting playerInfo.attack variable
         var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
-        pickedEnemyObj.health = Math.max(0, pickedEnemyObj.health - damage);
+        enemy.health = Math.max(0, enemy.health - damage);
         console.log(
-            playerInfo.name + " attacked " + enemyName + ". " + enemyName + " now has " + pickedEnemyObj.health + " health remaining."
+            playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining."
         );
         // check enemy's health
-        if (pickedEnemyObj.health <= 0) {
-            window.alert(enemyName + " has died!");
+        if (enemy.health <= 0) {
+            window.alert(enemy.name + " has died!");
             // award player with money for winning
             playerInfo.money = playerInfo.money + 20;
             break;
         } else {
-            window.alert(enemyName + " still has " + pickedEnemyObj.health + " health left.");
+            window.alert(enemy.name + " still has " + enemy.health + " health left.");
         }
-        // remove player's health by subtracting enemyAttack variable
-        var damage = randomNumber(enemyAttack - 3, enemyAttack);
+        // remove player's health by subtracting enemy.attack variable
+        var damage = randomNumber(enemy.attack - 3, enemy.attack);
         playerInfo.health = Math.max(0, playerInfo.health - damage);
         console.log(
-            enemyName + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining."
+            enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining."
         );
         // check player's health
         if (playerInfo.health <= 0) {
@@ -63,7 +62,6 @@ var startGame = function () {
     for (var i = 0; i < enemyInfo.length; i++) {
         if (playerInfo.health > 0) {
             window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
-
             var pickedEnemyObj = enemyInfo[i];
             pickedEnemyObj.health = randomNumber(40, 60);
             fight(pickedEnemyObj);
@@ -82,6 +80,7 @@ var startGame = function () {
     endGame();
 };
 var endGame = function () {
+    window.alert("The game has now ended. Let's see how you did!");
     if (playerInfo.health > 0) {
         window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
     }
@@ -119,8 +118,16 @@ var shop = function () {
             break;
     }
 };
+var getPlayerName = function() {
+    var name = "";
+    while (name === "" || name === null) {
+        name = prompt("What is your robot's name?");
+    }
+    console.log("Your robot's name is " + name);
+    return name;
+};
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
@@ -166,4 +173,8 @@ var enemyInfo = [
         attack: randomNumber(10, 15)
     }
 ];
+console.log(enemyInfo);
+console.log(enemyInfo[0]);
+console.log(enemyInfo[0].name);
+console.log(enemyInfo[0]['attack']);
 startGame();
