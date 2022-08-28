@@ -4,6 +4,10 @@
 //    * Defeat each enemy-robot
 // "LOSE" - Player robot's health is zero or less
 // var to fight robot's
+var randomNumber = function (min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+    return value;
+};
 var fight = function (enemy) {
     console.log(enemy);
     while (playerInfo.health > 0 && pickedEnemyObj.health > 0) {
@@ -114,10 +118,6 @@ var shop = function () {
             shop();
             break;
     }
-};
-var randomNumber = function (min, max) {
-    var value = Math.floor(Math.random() * (max - min + 1) + min);
-    return value;
 };
 var playerInfo = {
     name: window.prompt("What is your robot's name?"),
